@@ -164,6 +164,10 @@ function! xolox#easytags#autoload(event) " {{{2
 endfunction
 
 function! xolox#easytags#update(silent, filter_tags, filenames) " {{{2
+  if xolox#easytags#update#pass_whitelist() != 1
+    return 0
+  endif
+
   let async = xolox#misc#option#get('easytags_async', 0)
   call g:xolox#easytags#update_timer.start()
   try

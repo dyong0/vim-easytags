@@ -262,6 +262,22 @@ function! xolox#easytags#update#foldcase_compare(a, b) " {{{1
   return a == b ? 0 : a ># b ? 1 : -1
 endfunction
 
+function! xolox#easytags#update#pass_whitelist() " {{{1
+    if !exists('g:easytags_whitelist') || empty(g:easytags_whitelist)
+        return 1
+    endif
+
+    let current_dir = getcwd()
+    for white_reg in g:easytags_whitelist
+        call xolox#misc#msg#debug("easytags.vim %s: Test '%s' with '%s'.", g:xolox#easytags#version, current_dir, white_reg)
+        if match(current_dir, white_reg) != -1
+            return 1
+        endif
+    endfor
+
+  return 0
+endfunction  "}}}
+
 function! s:create_cache() " {{{1
   let cache = {'canonicalize_cache': {}, 'exists_cache': {}}
   function cache.canonicalize(pathname) dict
