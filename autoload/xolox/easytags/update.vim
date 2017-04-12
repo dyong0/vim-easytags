@@ -267,7 +267,7 @@ function! xolox#easytags#update#pass_whitelist() " {{{1
         return 1
     endif
 
-    let current_dir = getcwd()
+    let current_dir = expand('%:p:h')
     for white_reg in g:easytags_whitelist
         call xolox#misc#msg#debug("easytags.vim %s: Test '%s' with '%s'.", g:xolox#easytags#version, current_dir, white_reg)
         if match(current_dir, white_reg) != -1
